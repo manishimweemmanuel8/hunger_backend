@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
@@ -11,12 +12,15 @@ import { UserRole } from './enum/auth-role.enum';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
+  @ApiProperty()
   id: string;
 
   @Column({ unique: true })
+  @ApiProperty()
   username: string;
 
   @Column({ unique: true })
+  @ApiProperty()
   email: string;
 
   @Column()

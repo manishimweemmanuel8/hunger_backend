@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsEmail,
@@ -11,10 +12,12 @@ export class AuthCredentialsDto {
   @IsString({ message: 'username is required' })
   @MinLength(4)
   @MaxLength(20)
+  @ApiProperty()
   username: string;
 
   @IsString({ message: 'email is required' })
   @IsEmail()
+  @ApiProperty()
   email: string;
 
   @IsString()
@@ -23,6 +26,7 @@ export class AuthCredentialsDto {
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'password is too weak',
   })
+  @ApiProperty()
   password: string;
   @IsBoolean({ message: 'status is required', each: true })
   isActive?: boolean = true;

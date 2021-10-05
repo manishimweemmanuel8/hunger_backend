@@ -14,10 +14,13 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
   const port = 3000;
 
-  logger.log(`Application listening on port ${port}`);
+  
   app.setGlobalPrefix('api/v1');
-  SwaggerModule.setup('api', app, createDocument(app));
+  SwaggerModule.setup('swagger', app, createDocument(app));
   await app.listen(port);
+  console.log(`Application is running on: ${await app.getUrl()}`);
+  logger.log(`Application listening on port ${port}`);
+
 }
 
 bootstrap();
