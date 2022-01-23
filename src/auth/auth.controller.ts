@@ -1,7 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
-import { AuthCredentialsSignInDto } from './dto/auth-credentials-signin.dto';
+import { SignupDto } from './DTO/signup.dto';
+import { SigninDto } from './DTO/signin.dto';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -9,25 +9,22 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-@ApiBearerAuth()
-@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/signup')
-  @ApiOperation({ summary: 'Create Account' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
-  signUp(@Body() authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    return this.authService.signUp(authCredentialsDto);
+  signUp(@Body() signupDto: SignupDto): Promise<void> {
+    return this.authService.signUp(signupDto);
   }
 
   @Post('/signin')
-  @ApiOperation({ summary: 'Login' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
-  signIn(
-    @Body() authCredentialsSignInDto: AuthCredentialsSignInDto,
-  ): Promise<{ accessToken: string }> {
-    return this.authService.signIn(authCredentialsSignInDto);
+  signIn(@Body() signinDto: SigninDto): Promise<{ accessToken: string }> {
+    return this.authService.signIn(signinDto);
+  }
+
+  @Get()
+  async show() {
+    return await this.authService.show();
   }
 }

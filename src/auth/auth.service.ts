@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
-import { AuthCredentialsSignInDto } from './dto/auth-credentials-signin.dto';
+import { SignupDto } from './DTO/signup.dto';
+import { SigninDto } from './DTO/signin.dto';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -15,14 +15,13 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    return this.usersRepository.createUser(authCredentialsDto);
+  async signUp(signupDto: SignupDto): Promise<void> {
+    console.log(signupDto);
+    return this.usersRepository.createUser(signupDto);
   }
 
-  async signIn(
-    authCredentialsSignInDto: AuthCredentialsSignInDto,
-  ): Promise<{ accessToken: string }> {
-    const { username, password } = authCredentialsSignInDto;
+  async signIn(signinDto: SigninDto): Promise<{ accessToken: string }> {
+    const { username, password } = signinDto;
     const user = await this.usersRepository.findOne({
       username,
       isActive: true,
@@ -37,5 +36,14 @@ export class AuthService {
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }
+  }
+
+  async edit(signupDTO: SignupDto,districtName): Promise<void> {
+    console.log(districtName);
+    return this.usersRepository.editUser(signupDTO,districtName);
+  }
+
+  async show() {
+    return await this.usersRepository.find();
   }
 }

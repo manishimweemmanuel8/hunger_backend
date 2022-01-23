@@ -7,17 +7,11 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Role } from '../enum/role.enum';
 
-export class AuthCredentialsDto {
-  @IsString({ message: 'username is required' })
-  @MinLength(4)
-  @MaxLength(20)
-  @ApiProperty()
+export class SignupDto {
   username: string;
 
-  @IsString({ message: 'email is required' })
-  @IsEmail()
-  @ApiProperty()
   email: string;
 
   @IsString()
@@ -28,6 +22,6 @@ export class AuthCredentialsDto {
   })
   @ApiProperty()
   password: string;
-  @IsBoolean({ message: 'status is required', each: true })
   isActive?: boolean = true;
+  role:Role;
 }

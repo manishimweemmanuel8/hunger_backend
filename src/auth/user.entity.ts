@@ -1,13 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { About } from 'src/about/about.entity';
+import { District } from 'src/district/district.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserRole } from './enum/auth-role.enum';
+import { Role } from './enum/role.enum';
 
 @Entity()
 export class User {
@@ -37,6 +40,12 @@ export class User {
   @DeleteDateColumn()
   deleteAt: Date;
 
-  @Column({ type: 'enum', enum: UserRole, default: UserRole.ORGANIZER })
-  role: UserRole;
+  @Column({ type: 'enum', enum: Role, default: Role.DISTRICT })
+  role: Role;
+
+  @OneToMany(() => District, district => district.user)
+  districts: District[];
+
+  @OneToMany(() => About, about => about.user)
+  abouts: About[];
 }
