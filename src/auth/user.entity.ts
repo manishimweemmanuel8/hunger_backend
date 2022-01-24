@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { About } from 'src/about/about.entity';
-import { District } from 'src/district/district.entity';
+import { About } from '../about/about.entity';
+import { Contact } from '../contact/contact.entity';
+import { District } from '../district/district.entity';
+import { Services } from '../services/services.entity';
 import {
   Column,
   CreateDateColumn,
@@ -43,9 +45,15 @@ export class User {
   @Column({ type: 'enum', enum: Role, default: Role.DISTRICT })
   role: Role;
 
-  @OneToMany(() => District, district => district.user)
+  @OneToMany(() => District, (district) => district.user)
   districts: District[];
 
-  @OneToMany(() => About, about => about.user)
+  @OneToMany(() => About, (about) => about.user)
   abouts: About[];
+
+  @OneToMany(() => Contact, (contact) => contact.user)
+  contacts: Contact[];
+
+  @OneToMany(() => Services, (services) => services.user)
+  services: Services[];
 }
