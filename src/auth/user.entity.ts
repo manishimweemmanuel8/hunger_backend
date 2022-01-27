@@ -13,6 +13,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Role } from './enum/role.enum';
+import { Campaign } from '../campaign/campaign.entity';
+import { Donate } from '../donate/donate.entity';
 
 @Entity()
 export class User {
@@ -56,4 +58,7 @@ export class User {
 
   @OneToMany(() => Services, (services) => services.user)
   services: Services[];
+
+  @OneToMany(() => Campaign, (campaign) => campaign.user)
+  campaigns: Campaign[];
 }
