@@ -2,12 +2,12 @@ import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
 import { CampaignService } from 'src/campaign/campaign.service';
 import { MailService } from 'src/mail/mail.service';
 import { SubscriptionDTO } from './DTO/subscription.dto';
-import { SubscribtionService } from './subscription.service';
+import { SubscriptionService } from './subscription.service';
 
 @Controller('subscription')
-export class SubscribtionController {
+export class SubscriptionController {
   constructor(
-    private subscriptionService: SubscribtionService,
+    private subscriptionService: SubscriptionService,
     private mailService: MailService,
     private campaingService: CampaignService,
   ) {}

@@ -43,12 +43,10 @@ export class DonateController {
   }
 
   @Patch(':id')
-  async edit(
-    @Param('id') id: string,
-    @Body() donateDTO: DonateDTO,
-  ): Promise<void> {
+  async edit(@Param('id') id: string, @Body() donateDTO: DonateDTO) {
     const { campaignId } = donateDTO;
     const campaign = await this.campaignService.read(campaignId);
+
     return this.donateService.edit(donateDTO, id, campaign);
   }
 }

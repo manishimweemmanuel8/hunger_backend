@@ -19,27 +19,25 @@ export class Donate {
   names: string;
   @Column('text')
   description: string;
-  @Column({nullable:true, default:0})
+  @Column({ nullable: true, default: 0 })
   quantity: number;
 
   @Column()
   phone: string;
 
   @Column()
-  email:string;
+  email: string;
 
-  @Column({nullable:true})
-  amount:number;
+  @Column({ nullable: true })
+  amount: number;
 
-  @Column({default:false})
-  received:boolean;
+  @Column({ default: false })
+  received: boolean;
 
   @Column()
-  location:string;
+  location: string;
 
-
-
-  @ManyToOne(()=>Campaign, (campaign)=>campaign.donates )
+  @ManyToOne(() => Campaign, (campaign) => campaign.donates)
   campaign: Campaign;
 
   @CreateDateColumn()

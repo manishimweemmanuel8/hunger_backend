@@ -5,10 +5,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DonateRepository } from './donate.repository';
 import { AuthModule } from '../auth/auth.module';
 import { CampaignModule } from '../campaign/campaign.module';
+import { SubscriptionModule } from 'src/subscription/subscribtion.module';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([DonateRepository]), AuthModule, CampaignModule],
+  imports: [
+    TypeOrmModule.forFeature([DonateRepository]),
+    AuthModule,
+    CampaignModule,
+    SubscriptionModule,
+    MailModule,
+  ],
   providers: [DonateService],
-  controllers: [DonateController]
+  controllers: [DonateController],
 })
 export class DonateModule {}

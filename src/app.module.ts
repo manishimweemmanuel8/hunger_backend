@@ -12,7 +12,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { extname } from 'path';
 import { MulterModule } from '@nestjs/platform-express';
 import { MailModule } from './mail/mail.module';
-import { SubscribtionModule } from './subscription/subscribtion.module';
+import { SubscriptionModule } from './subscription/subscribtion.module';
 
 
 const imageFilter = function (req, file, cb) {
@@ -56,7 +56,7 @@ const imageFilter = function (req, file, cb) {
     DonateModule,
     CloudinaryModule,
     MailModule,
-    SubscribtionModule,
+    SubscriptionModule,
   ],
   controllers: [],
 })
