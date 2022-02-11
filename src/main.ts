@@ -10,14 +10,11 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new TransformInterceptor());
-  const port = 3000;
-
-  
+  const port = 3001;
   app.setGlobalPrefix('api/v1');
   await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()}`);
   logger.log(`Application listening on port ${port}`);
-
 }
 
 bootstrap();

@@ -13,10 +13,10 @@ import { AboutService } from './about.service';
 import { AboutDTO } from './DTO/about.dto';
 
 @Controller('about')
-@UseGuards(AuthGuard('jwt'))
 export class AboutController {
   constructor(private aboutService: AboutService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   register(@Body() aboutDTO: AboutDTO, @Request() req): Promise<void> {
     const user = req.user;

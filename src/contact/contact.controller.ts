@@ -13,8 +13,6 @@ import { ContactService } from './contact.service';
 import { ContactDTO } from './DTO/contact.dto';
 
 @Controller('contact')
-@UseGuards(AuthGuard('jwt'))
-
 export class ContactController {
   constructor(private contactService: ContactService) {}
 

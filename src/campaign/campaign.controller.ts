@@ -9,7 +9,6 @@ import {
   Request,
   Res,
   UploadedFile,
-  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -18,51 +17,58 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 import { CampaignService } from './campaign.service';
 import { CampaignDTO } from './DTO/campaign.dto';
-import { diskStorage } from 'multer';
-import { extname, join } from 'path';
-import { ImageDTO } from './DTO/image.dto';
 import { saveImageToStarage } from './helper/image-storage';
 import { of } from 'rxjs';
 import { MailService } from '../mail/mail.service';
+import { join } from 'path';
 
 @Controller('campaign')
-@UseGuards(AuthGuard('jwt'))
 export class CampaignController {
-  SERVER_URL: string = 'http://localhost:3000/';
+  constructor(private campaignService: CampaignService) {}
 
-  constructor(
-    private campaignService: CampaignService,
-    private mailService: MailService,
-  ) {}
-
+  @Get('/latest')
+  async latest() {
+    console.log('hello');
+    return await this.campaignService.latest();
+  }
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   register(@Body() campaignDTO: CampaignDTO, @Request() req): Promise<void> {
     const user = req.user;
     return this.campaignService.register(campaignDTO, user);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   async show() {
     return await this.campaignService.show();
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('district')
   async showByDistrict(@Request() req) {
     const user = req.user;
     return await this.campaignService.showByDistrict(user);
   }
+  @UseGuards(AuthGuard('jwt'))
   @Get('active/district')
   async showByDistrictActiveCampaign(@Request() req) {
     const user = req.user;
     return await this.campaignService.showByDistrictActiveCampaign(user);
   }
 
+  @Get('active')
+  async showByActiveCampaign() {
+    return await this.campaignService.showByActiveCampaign();
+  }
+  @UseGuards(AuthGuard('jwt'))
   @Get('inactive/district')
   async showByDistrictInactiveCampaign(@Request() req) {
     const user = req.user;
     return await this.campaignService.showByDistrictInactiveCampaign(user);
   }
 
+  // @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   async read(@Param('id') id: string) {
     console.log(id);
@@ -70,6 +76,7 @@ export class CampaignController {
     return await this.campaignService.read(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   async edit(
     @Param('id') id: string,
@@ -80,25 +87,7 @@ export class CampaignController {
     return this.campaignService.edit(campaignDTO, user, id);
   }
 
-  // Upload image of item
-
-  @Post('uploadImage/:id')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadImage(
-    @UploadedFile() file: Express.Multer.File,
-    @Param('id') id: string,
-  ) {
-    const picture = await this.campaignService.uploadImageToCloudinary(
-      file,
-      id,
-    );
-    return {
-      statusCode: HttpStatus.OK,
-      message: 'Imanage added successfully',
-      payload: picture,
-    };
-  }
-
+  @UseGuards(AuthGuard('jwt'))
   @Post('upload/:id')
   @UseInterceptors(FileInterceptor('file', saveImageToStarage))
   uploadFile(

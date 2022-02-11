@@ -8,17 +8,21 @@ import { ServicesModule } from './services/services.module';
 import { ContactModule } from './contact/contact.module';
 import { CampaignModule } from './campaign/campaign.module';
 import { DonateModule } from './donate/donate.module';
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { extname } from 'path';
 import { MulterModule } from '@nestjs/platform-express';
 import { MailModule } from './mail/mail.module';
 import { SubscriptionModule } from './subscription/subscribtion.module';
 
-
 const imageFilter = function (req, file, cb) {
   // accept image only
   if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-    cb(new HttpException(`Unsupported file type ${extname(file.originalname)}`, HttpStatus.BAD_REQUEST), false);
+    cb(
+      new HttpException(
+        `Unsupported file type ${extname(file.originalname)}`,
+        HttpStatus.BAD_REQUEST,
+      ),
+      false,
+    );
   }
   cb(null, true);
 };
@@ -44,7 +48,7 @@ const imageFilter = function (req, file, cb) {
 
     MulterModule.registerAsync({
       useFactory: () => ({
-        fileFilter: imageFilter
+        fileFilter: imageFilter,
       }),
     }),
     AuthModule,
@@ -54,7 +58,6 @@ const imageFilter = function (req, file, cb) {
     ContactModule,
     CampaignModule,
     DonateModule,
-    CloudinaryModule,
     MailModule,
     SubscriptionModule,
   ],
