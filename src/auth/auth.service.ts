@@ -6,6 +6,8 @@ import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
+import { EditDTO } from './DTO/edit.dto';
+import { PasswordDto } from './DTO/password.dto';
 
 @Injectable()
 export class AuthService {
@@ -38,12 +40,19 @@ export class AuthService {
     }
   }
 
-  async edit(signupDTO: SignupDto,districtName): Promise<void> {
-    console.log(districtName);
-    return this.usersRepository.editUser(signupDTO,districtName);
+  async edit(editDTO: EditDTO, id): Promise<void> {
+    return this.usersRepository.editUser(editDTO, id);
   }
+
+  async editPassword(passwordDTO: PasswordDto): Promise<void> {
+    return this.usersRepository.editPassword(passwordDTO);
+  }
+
 
   async show() {
     return await this.usersRepository.find();
+  }
+  async read(id: string) {
+    return await this.usersRepository.findOne(id);
   }
 }

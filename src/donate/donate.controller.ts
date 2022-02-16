@@ -21,7 +21,9 @@ export class DonateController {
   @Post()
   async register(@Body() donateDTO: DonateDTO): Promise<void> {
     const { campaignId } = donateDTO;
+    console.log(campaignId);
     const campaign = await this.campaignService.read(campaignId);
+    console.log(campaign);
     return this.donateService.register(donateDTO, campaign);
   }
 

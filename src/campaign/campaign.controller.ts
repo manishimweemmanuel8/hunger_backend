@@ -28,7 +28,6 @@ export class CampaignController {
 
   @Get('/latest')
   async latest() {
-    console.log('hello');
     return await this.campaignService.latest();
   }
   @UseGuards(AuthGuard('jwt'))
@@ -95,7 +94,7 @@ export class CampaignController {
     @Param('id') id: string,
   ) {
     const fileName = file?.filename;
-    console.log(file);
+
     if (!fileName) return of({ error: 'File must be a png, jpg/jpeg' });
 
     const imagesFolderPath = join(process.cwd(), 'images');
@@ -104,7 +103,7 @@ export class CampaignController {
       id: id,
       image: fileName,
     };
-    console.log(id);
+
     const picture = this.campaignService.updateImage(data);
     return picture;
     return of({ error: 'File content does not match extenstion !' });
@@ -113,8 +112,6 @@ export class CampaignController {
   @Get('image/:imgpath')
   async seeUploadedFile(@Param('imgpath') image, @Res() res) {
     const imageName = await this.campaignService.readImage(image);
-    console.log(imageName);
-    console.log(res.sendFile(imageName, { root: './images' }));
 
     return res.sendFile(imageName, { root: './images' });
   }

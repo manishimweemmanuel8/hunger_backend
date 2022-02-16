@@ -20,7 +20,7 @@ export class CampaignService {
   }
 
   async showByDistrict(user) {
-    return await this.campaignRepository.findOne({
+    return await this.campaignRepository.find({
       relations: ['user'],
       where: { user: user },
     });
