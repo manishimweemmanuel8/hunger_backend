@@ -12,6 +12,7 @@ import { extname } from 'path';
 import { MulterModule } from '@nestjs/platform-express';
 import { MailModule } from './mail/mail.module';
 import { SubscriptionModule } from './subscription/subscribtion.module';
+import { FeedbackModule } from './feedback/feedback.module';
 
 const imageFilter = function (req, file, cb) {
   // accept image only
@@ -60,6 +61,7 @@ const imageFilter = function (req, file, cb) {
     DonateModule,
     MailModule,
     SubscriptionModule,
+    FeedbackModule,
   ],
   controllers: [],
 })
