@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupDto } from './DTO/signup.dto';
 import { SigninDto } from './DTO/signin.dto';
@@ -10,6 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { EditDTO } from './DTO/edit.dto';
 import { PasswordDto } from './DTO/password.dto';
+import { User } from './user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -30,13 +39,23 @@ export class AuthController {
     return await this.authService.show();
   }
 
+  @Get('/countUser')
+  async countUser(): Promise<number> {
+    return await this.authService.countUser();
+  }
+
   @Get('/:id')
   async read(@Param() id: string) {
     return await this.authService.read(id);
   }
 
+  @Delete('/:id')
+  async delete(@Param() id: string) {
+    return await this.authService.delete(id);
+  }
+
   @Patch('/:id')
-  editUser(@Param() id: string, @Body() editDTO: EditDTO): Promise<void> {
+  editUser(@Param() id: string, @Body() editDTO: EditDTO): Promise<User> {
     return this.authService.edit(editDTO, id);
   }
   @Post('/password')

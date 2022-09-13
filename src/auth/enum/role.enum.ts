@@ -1,4 +1,4 @@
 export enum Role {
-  DISTRICT = 'DISTRICT',
+  STAFF = 'STAFF',
   ADMIN = 'ADMIN',
 }

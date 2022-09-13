@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { About } from '../about/about.entity';
-import { Contact } from '../contact/contact.entity';
-import { District } from '../district/district.entity';
-import { Services } from '../services/services.entity';
+import {  Program } from '../program/program.entity';
+import { Combinations } from '../combination/combination.entity';
 import {
   Column,
   CreateDateColumn,
@@ -13,8 +11,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Role } from './enum/role.enum';
-import { Campaign } from '../campaign/campaign.entity';
-import { Donate } from '../donate/donate.entity';
+import { Scholorship } from 'src/scholorship/scholorship.entity';
+import { Criterial } from 'src/criterial/criterial.entity';
 
 @Entity()
 export class User {
@@ -44,21 +42,22 @@ export class User {
   @DeleteDateColumn()
   deleteAt: Date;
 
-  @Column({ type: 'enum', enum: Role, default: Role.DISTRICT })
+  @Column({ type: 'enum', enum: Role, default: Role.STAFF })
   role: Role;
 
-  @OneToMany(() => District, (district) => district.user)
-  districts: District[];
 
-  @OneToMany(() => About, (about) => about.user)
-  abouts: About[];
 
-  @OneToMany(() => Contact, (contact) => contact.user)
-  contacts: Contact[];
 
-  @OneToMany(() => Services, (services) => services.user)
-  services: Services[];
 
-  @OneToMany(() => Campaign, (campaign) => campaign.user)
-  campaigns: Campaign[];
+  @OneToMany(() => Program, (program) => program.user)
+  programs: Program[];
+
+  @OneToMany(() => Combinations, (combinations) => combinations.user)
+  combinations: Combinations[];
+
+  @OneToMany(() => Scholorship, (scholorship) => scholorship.user)
+  scholorships: Scholorship[];
+
+  @OneToMany(() => Criterial, (criterial) => criterial.user)
+  criterials: Criterial[];
 }

@@ -2,17 +2,15 @@ import { HttpException, HttpStatus, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { DistrictModule } from './district/district.module';
-import { AboutModule } from './about/about.module';
-import { ServicesModule } from './services/services.module';
-import { ContactModule } from './contact/contact.module';
-import { CampaignModule } from './campaign/campaign.module';
-import { DonateModule } from './donate/donate.module';
 import { extname } from 'path';
 import { MulterModule } from '@nestjs/platform-express';
 import { MailModule } from './mail/mail.module';
-import { SubscriptionModule } from './subscription/subscribtion.module';
-import { FeedbackModule } from './feedback/feedback.module';
+import { ProgramModule } from './program/program.module';
+import { CombinationsModule } from './combination/combinations.module';
+import { CandidateModule } from './candidate/candidate.module';
+import { ScholorShipModule } from './scholorship/scholorship.module';
+import { CriterialModule } from './criterial/criterial.module';
+import { SelectModule } from './select/select.module';
 
 const imageFilter = function (req, file, cb) {
   // accept image only
@@ -53,15 +51,13 @@ const imageFilter = function (req, file, cb) {
       }),
     }),
     AuthModule,
-    DistrictModule,
-    AboutModule,
-    ServicesModule,
-    ContactModule,
-    CampaignModule,
-    DonateModule,
-    MailModule,
-    SubscriptionModule,
-    FeedbackModule,
+    CandidateModule,
+    CombinationsModule,
+    ProgramModule,
+    ScholorShipModule,
+    CriterialModule,
+    SelectModule
+    // MailModule,
   ],
   controllers: [],
 })

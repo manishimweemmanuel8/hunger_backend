@@ -57,7 +57,7 @@ export class UsersRepository extends Repository<User> {
     }
   }
 
-  async editUser(editDTO: EditDTO, id): Promise<void> {
+  async editUser(editDTO: EditDTO, id): Promise<User> {
     const { username, email, isActive, role } = editDTO;
 
     const salt = await bcrypt.genSalt();
@@ -70,7 +70,7 @@ export class UsersRepository extends Repository<User> {
     user.isActive = isActive;
 
     try {
-      await this.save(user);
+     return await this.save(user);
     } catch (error) {
       if (error.code === '23505') {
         // duplicate username

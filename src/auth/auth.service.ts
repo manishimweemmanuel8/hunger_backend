@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
 import { EditDTO } from './DTO/edit.dto';
 import { PasswordDto } from './DTO/password.dto';
+import { User } from './user.entity';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,6 @@ export class AuthService {
   ) {}
 
   async signUp(signupDto: SignupDto): Promise<void> {
-    console.log(signupDto);
     return this.usersRepository.createUser(signupDto);
   }
 
@@ -40,7 +40,7 @@ export class AuthService {
     }
   }
 
-  async edit(editDTO: EditDTO, id): Promise<void> {
+  async edit(editDTO: EditDTO, id): Promise<User> {
     return this.usersRepository.editUser(editDTO, id);
   }
 
@@ -48,11 +48,18 @@ export class AuthService {
     return this.usersRepository.editPassword(passwordDTO);
   }
 
-
   async show() {
     return await this.usersRepository.find();
   }
   async read(id: string) {
     return await this.usersRepository.findOne(id);
+  }
+
+  async delete(id: string) {
+    return await this.usersRepository.delete(id);
+  }
+
+  async countUser(): Promise<number> {
+    return await this.usersRepository.count();
   }
 }
